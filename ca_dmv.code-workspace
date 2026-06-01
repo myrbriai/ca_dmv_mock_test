@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"name": "ami-go-round",
+			"path": "../../Ami-go-round/ami-go-round"
+		}
+	],
+	"settings": {}
+}

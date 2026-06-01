@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>California DMV Mock Test — Class C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b2545; --navy2:#13315c; --gold:#c8932c; --gold-soft:#e7c87a;
+    --paper:#f6f1e7; --paper2:#fbf8f1; --ink:#1c2530; --muted:#5c6b7a;
+    --green:#1f7a4d; --green-bg:#e6f3ec; --red:#b3261e; --red-bg:#fbeae9;
+    --line:#dcd3c2; --shadow:0 10px 40px rgba(11,37,69,.12);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); color:var(--ink); line-height:1.55;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(200,147,44,.10), transparent 60%),
+      radial-gradient(700px 500px at -10% 110%, rgba(19,49,92,.10), transparent 55%),
+      var(--paper);
+    min-height:100vh; padding:28px 16px 80px;
+  }
+  .wrap{max-width:780px;margin:0 auto}
+
+  /* Header */
+  header{text-align:center; margin-bottom:22px}
+  .crest{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:58px;height:58px;border-radius:50%;
+    background:linear-gradient(160deg,var(--navy),var(--navy2));
+    color:var(--gold-soft);font-family:var(--serif);font-weight:700;font-size:24px;
+    border:2px solid var(--gold); box-shadow:var(--shadow); margin-bottom:12px;
+    letter-spacing:.5px;
+  }
+  h1{font-family:var(--serif);font-weight:600;color:var(--navy);
+     font-size:clamp(26px,5vw,38px);line-height:1.05;letter-spacing:-.5px}
+  .sub{color:var(--muted);margin-top:8px;font-size:15px}
+  .tag{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--navy);
+    background:rgba(200,147,44,.16);border:1px solid rgba(200,147,44,.4);
+    padding:5px 12px;border-radius:999px}
+
+  /* Cards */
+  .card{background:var(--paper2);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);padding:26px 24px;margin-top:18px}
+
+  /* Start screen */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 4px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .stat b{display:block;font-family:var(--serif);font-size:26px;color:var(--navy);font-weight:700}
+  .stat span{font-size:12px;color:var(--muted)}
+  .start-note{color:var(--muted);font-size:14px;margin-top:6px}
+
+  .btn{font-family:var(--sans);font-weight:600;font-size:16px;cursor:pointer;
+    border:none;border-radius:11px;padding:14px 22px;transition:transform .08s ease,filter .15s ease;
+    display:inline-flex;align-items:center;gap:9px;justify-content:center}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff}
+  .btn-primary:hover{filter:brightness(1.12)}
+  .btn-gold{background:linear-gradient(160deg,var(--gold),#b07f1f);color:#fff}
+  .btn-gold:hover{filter:brightness(1.08)}
+  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--navy)}
+  .btn-ghost:hover{border-color:var(--gold)}
+  .btn-block{width:100%;margin-top:18px}
+
+  /* History */
+  .history{margin-top:18px}
+  .history h3{font-family:var(--serif);font-size:18px;color:var(--navy);font-weight:600;margin-bottom:10px}
+  .hrow{display:flex;justify-content:space-between;align-items:center;font-size:14px;
+    padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;margin-bottom:7px}
+  .pill{font-weight:700;font-size:12.5px;padding:3px 10px;border-radius:999px}
+  .pill.pass{background:var(--green-bg);color:var(--green)}
+  .pill.fail{background:var(--red-bg);color:var(--red)}
+  .clearbtn{background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline}
+
+  /* Quiz */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    position:sticky;top:0;background:rgba(246,241,231,.92);backdrop-filter:blur(6px);
+    padding:10px 4px;margin:-4px 0 6px;z-index:5;border-bottom:1px solid transparent}
+  .progress-txt{font-weight:600;color:var(--navy);font-size:14px}
+  .bar{flex:1;height:8px;background:#e5ddcd;border-radius:999px;overflow:hidden;margin:0 12px}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--navy));width:0;transition:width .25s ease}
+  .qnum{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+  .qtext{font-family:var(--serif);font-size:clamp(19px,3.6vw,23px);color:var(--navy);
+    font-weight:600;line-height:1.3;margin:6px 0 20px}
+  .opt{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;
+    background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:15px 16px;
+    margin-bottom:11px;cursor:pointer;font-size:15.5px;color:var(--ink);
+    transition:border-color .12s,background .12s,transform .06s}
+  .opt:hover{border-color:var(--gold)}
+  .opt:active{transform:translatey(1px)}
+  .opt.sel{border-color:var(--navy);background:#eef2f8}
+  .letter{flex:none;width:27px;height:27px;border-radius:7px;background:#eef0f3;
+    color:var(--navy);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .opt.sel .letter{background:var(--navy);color:#fff}
+  .navrow{display:flex;gap:12px;margin-top:8px}
+  .navrow .btn{flex:1}
+
+  /* Results */
+  .scorewrap{text-align:center;padding:8px 0 4px}
+  .ring{width:150px;height:150px;margin:6px auto 8px;position:relative}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .pct b{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--navy);line-height:1}
+  .ring .pct span{font-size:12px;color:var(--muted);margin-top:3px}
+  .verdict{font-family:var(--serif);font-size:26px;font-weight:700;margin-top:6px}
+  .verdict.pass{color:var(--green)}.verdict.fail{color:var(--red)}
+  .verdict-sub{color:var(--muted);font-size:14.5px;margin-top:4px}
+
+  .review{margin-top:22px}
+  .review h3{font-family:var(--serif);font-size:19px;color:var(--navy);font-weight:600;margin-bottom:4px}
+  .review .hint{color:var(--muted);font-size:13.5px;margin-bottom:14px}
+  .rq{border:1px solid var(--line);border-radius:13px;padding:16px 16px;margin-bottom:13px;background:#fff}
+  .rq.wrong{border-left:4px solid var(--red)}
+  .rq.right{border-left:4px solid var(--green)}
+  .rq .qt{font-weight:600;color:var(--navy);font-size:15.5px;margin-bottom:9px}
+  .ans{font-size:14px;margin:3px 0;display:flex;gap:8px;align-items:baseline}
+  .ans .ic{flex:none;font-weight:700}
+  .ans.you-wrong{color:var(--red)} .ans.correct{color:var(--green)}
+  .exp{font-size:13.5px;color:var(--muted);margin-top:9px;padding-top:9px;border-top:1px dashed var(--line)}
+  .exp b{color:var(--ink)}
+  .toggle{margin:4px 0 18px;text-align:center}
+  .toggle button{background:none;border:1px solid var(--line);border-radius:999px;
+    padding:7px 16px;font-size:13px;color:var(--navy);cursor:pointer;font-weight:600}
+  .footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.6}
+  .hidden{display:none}
+  @media(max-width:520px){.info-grid{grid-template-columns:1fr 1fr 1fr;gap:8px}.card{padding:20px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="crest">CA</div>
+    <h1>California DMV Mock Test</h1>
+    <p class="sub">Class C Knowledge Exam · Adult (18+) format</p>
+    <div class="tag">Built from the 2025 Driver's Handbook</div>
+  </header>
+
+  <!-- ===== START SCREEN ===== -->
+  <section id="start" class="card">
+    <div class="info-grid">
+      <div class="stat"><b>36</b><span>questions</span></div>
+      <div class="stat"><b>30</b><span>to pass (83%)</span></div>
+      <div class="stat"><b>1</b><span>answer each</span></div>
+    </div>
+    <p class="start-note">Each test pulls 36 questions at random from a verified bank and shuffles the
+      answer order, so no two days are identical. Answer every question, then submit to see your
+      score and a handbook-based explanation for anything you miss. Aim for 30+ correct.</p>
+    <button class="btn btn-primary btn-block" onclick="startTest()">Start Today's Test &nbsp;→</button>
+    <div id="historyBox" class="history"></div>
+  </section>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <section id="quiz" class="card hidden">
+    <div class="topbar">
+      <span class="progress-txt"><span id="answeredCount">0</span>/36 answered</span>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <span class="progress-txt" id="posTxt">Q1</span>
+    </div>
+    <div class="qnum" id="qNum">Question 1 of 36</div>
+    <div class="qtext" id="qText"></div>
+    <div id="optBox"></div>
+    <div class="navrow">
+      <button class="btn btn-ghost" id="prevBtn" onclick="go(-1)">← Previous</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="go(1)">Next →</button>
+    </div>
+    <button class="btn btn-gold btn-block hidden" id="submitBtn" onclick="submitTest()">Submit Test</button>
+  </section>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <section id="results" class="card hidden">
+    <div class="scorewrap">
+      <div class="ring">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle cx="75" cy="75" r="64" fill="none" stroke="#e5ddcd" stroke-width="13"/>
+          <circle id="ringFg" cx="75" cy="75" r="64" fill="none" stroke="var(--navy)" stroke-width="13"
+            stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/>
+        </svg>
+        <div class="pct"><b id="scoreNum">0/36</b><span id="scorePct">0%</span></div>
+      </div>
+      <div class="verdict" id="verdict">—</div>
+      <div class="verdict-sub" id="verdictSub"></div>
+    </div>
+    <div class="navrow" style="margin-top:18px">
+      <button class="btn btn-ghost" onclick="backToStart()">↺ Home</button>
+      <button class="btn btn-primary" onclick="startTest()">Take Another →</button>
+    </div>
+    <div class="review">
+      <h3>Review</h3>
+      <p class="hint" id="reviewHint"></p>
+      <div class="toggle"><button id="toggleBtn" onclick="toggleReview()">Show all 36</button></div>
+      <div id="reviewBox"></div>
+    </div>
+  </section>
+
+  <p class="footer-note">
+    Study aid only — questions are written from the California Driver's Handbook (DMV, 2025).<br>
+    The official exam wording may differ. Always confirm current rules at dmv.ca.gov.
+  </p>
+</div>
+
+<script>
+/* ============================================================
+   VERIFIED QUESTION BANK
+   Each correct answer & explanation is grounded in the
+   California Driver's Handbook (2025). correct = index in opts.
+   ============================================================ */
+const BANK = [
+ {q:"It is illegal to drive if you are over 21 years old and have a blood alcohol concentration (BAC) of:",
+  opts:["0.08% or higher","0.05% or higher","0.10% or higher","0.01% or higher"],correct:0,
+  exp:"For drivers over 21, the legal limit is a BAC of 0.08% or higher."},
+ {q:"If you are under 21 years old, it is illegal to drive with a BAC of:",
+  opts:["0.01% or higher","0.08% or higher","0.05% or higher","0.04% or higher"],correct:0,
+  exp:"Drivers under 21 are held to a 0.01% BAC limit (zero-tolerance)."},
+ {q:"A driver of a vehicle requiring a commercial driver's license may not drive with a BAC of:",
+  opts:["0.04% or higher","0.08% or higher","0.01% or higher","0.10% or higher"],correct:0,
+  exp:"The BAC limit for commercial drivers (and for driving a passenger for hire) is 0.04%."},
+ {q:"You should signal continuously for at least how far before making a turn?",
+  opts:["100 feet","50 feet","25 feet","200 feet"],correct:0,
+  exp:"Signal at least 100 feet before you turn."},
+ {q:"Before changing lanes on a freeway, you should signal for at least:",
+  opts:["5 seconds","2 seconds","10 seconds","1 second"],correct:0,
+  exp:"Signal at least five seconds (about 400 feet) before changing lanes on a freeway."},
+ {q:"You must use your headlights when it is too dark to see people or vehicles from:",
+  opts:["1,000 feet away","500 feet away","300 feet away","200 feet away"],correct:0,
+  exp:"Use your headlights when it is too dark to see from 1,000 feet away."},
+ {q:"You must dim your high-beam headlights to low beams within how far of an oncoming vehicle?",
+  opts:["500 feet","300 feet","100 feet","1,000 feet"],correct:0,
+  exp:"Dim high beams to low within 500 feet of a vehicle coming toward you."},
+ {q:"You must dim your high beams to low beams within how far of a vehicle you are following?",
+  opts:["300 feet","500 feet","100 feet","200 feet"],correct:0,
+  exp:"Dim high beams to low within 300 feet of a vehicle you are following."},
+ {q:"In fog or heavy smoke, you should drive with your:",
+  opts:["Low-beam headlights","High-beam headlights","Parking lights only","Fog lights only"],correct:0,
+  exp:"Use low-beam headlights in fog; high beams reflect back and cause glare. Never drive on parking or fog lights only."},
+ {q:"You may NOT park within how many feet of a fire hydrant?",
+  opts:["15 feet","10 feet","20 feet","25 feet"],correct:0,
+  exp:"Never park within 15 feet of a fire hydrant or fire station driveway."},
+ {q:"You may NOT park within how many feet of an unmarked or marked crosswalk?",
+  opts:["20 feet","15 feet","25 feet","10 feet"],correct:0,
+  exp:"Do not park within 20 feet of a crosswalk (15 feet where a curb extension is present)."},
+ {q:"Unless otherwise posted, the speed limit at a blind intersection is:",
+  opts:["15 mph","25 mph","20 mph","10 mph"],correct:0,
+  exp:"The speed limit for a blind intersection (no stop signs at any corner) is 15 mph."},
+ {q:"The speed limit in an alley is:",
+  opts:["15 mph","25 mph","20 mph","10 mph"],correct:0,
+  exp:"The speed limit in an alley is 15 mph."},
+ {q:"Within 100 feet of a railroad crossing where you cannot see the tracks for 400 feet in both directions, the speed limit is:",
+  opts:["15 mph","25 mph","35 mph","20 mph"],correct:0,
+  exp:"It is 15 mph within 100 feet of such a crossing (unless controlled by gates, a signal, or a flagman)."},
+ {q:"Unless otherwise posted, the speed limit in a business or residential district is:",
+  opts:["25 mph","35 mph","30 mph","20 mph"],correct:0,
+  exp:"The speed limit in a business or residential district is 25 mph unless otherwise posted."},
+ {q:"The speed limit is 25 mph within 500 feet of a school when:",
+  opts:["Children are outside or crossing the street","School is in session at any time","It is a weekday","Buses are present only"],correct:0,
+  exp:"It is 25 mph within 500 feet of a school while children are outside or crossing; some zones are as low as 15 mph."},
+ {q:"Unless otherwise posted, the maximum speed limit on most California highways is:",
+  opts:["65 mph","55 mph","70 mph","60 mph"],correct:0,
+  exp:"The ideal maximum speed on most California highways is 65 mph unless otherwise posted."},
+ {q:"On a two-lane undivided highway, or when towing a trailer, the speed limit is:",
+  opts:["55 mph","65 mph","45 mph","60 mph"],correct:0,
+  exp:"It is 55 mph on a two-lane undivided highway and for vehicles towing trailers."},
+ {q:"To keep a safe following distance behind the vehicle ahead, you should use the:",
+  opts:["Three-second rule","One-second rule","Two-second rule","Half-second rule"],correct:0,
+  exp:"Allow a safe three-second following distance, and more in poor conditions."},
+ {q:"You may make a U-turn in a residential district only if no vehicles are approaching within:",
+  opts:["200 feet","100 feet","300 feet","500 feet"],correct:0,
+  exp:"In a residential district you may make a U-turn if no vehicles are approaching within 200 feet."},
+ {q:"You should never make a U-turn when you cannot see clearly for what distance in each direction?",
+  opts:["200 feet","100 feet","500 feet","300 feet"],correct:0,
+  exp:"Never make a U-turn when you cannot see clearly for 200 feet in each direction."},
+ {q:"Which of the following is a legal place to make a U-turn?",
+  opts:["Across a double yellow line","On a one-way street","At a railroad crossing","In front of a fire station"],correct:0,
+  exp:"You may make a U-turn across a double yellow line. The others are all prohibited."},
+ {q:"A child who is under 2 years old, under 40 pounds, and under 3 feet 4 inches tall must be secured in a:",
+  opts:["Rear-facing child passenger restraint system","Booster seat","Front seat with a lap belt","Forward-facing seat in the front"],correct:0,
+  exp:"Such a child must ride in a rear-facing child passenger restraint system."},
+ {q:"A child must ride secured in a child restraint system in the rear seat if they are under 8 years old OR shorter than:",
+  opts:["4 feet 9 inches","5 feet 0 inches","4 feet 0 inches","5 feet 9 inches"],correct:0,
+  exp:"Children under 8, or under 4 feet 9 inches tall, must be secured in a child restraint in a rear seat."},
+ {q:"Two vehicles reach an uncontrolled intersection at the same time. Who has the right-of-way?",
+  opts:["The vehicle on the right","The vehicle on the left","The faster vehicle","The larger vehicle"],correct:0,
+  exp:"If you reach the intersection at the same time, yield to the vehicle, pedestrian, or bicyclist on your right."},
+ {q:"When approaching a roundabout, you must:",
+  opts:["Yield to all traffic already in the roundabout","Stop before entering","Pass slower vehicles inside it","Enter heading to the left"],correct:0,
+  exp:"Yield to all traffic already in the roundabout, then enter when there is a safe gap."},
+ {q:"Traffic in a roundabout travels in which direction?",
+  opts:["Counterclockwise","Clockwise","Either direction","Whichever way is shorter"],correct:0,
+  exp:"Roundabout traffic travels counterclockwise around the central island; do not stop or pass."},
+ {q:"When parking headed downhill next to a curb, you should turn your front wheels:",
+  opts:["Toward the curb","Away from the curb","Straight ahead","It does not matter"],correct:0,
+  exp:"Headed downhill, turn your front wheels into (toward) the curb."},
+ {q:"When parking headed uphill next to a curb, you should turn your front wheels:",
+  opts:["Away from the curb (and let the car roll back to touch it)","Toward the curb","Straight ahead","It does not matter"],correct:0,
+  exp:"Headed uphill, turn your wheels away from the curb and let the vehicle roll back so a wheel gently touches the curb."},
+ {q:"When parking on a hill where there is no curb, turn your wheels:",
+  opts:["Toward the shoulder of the road","Toward the center of the road","Straight ahead","Away from the shoulder"],correct:0,
+  exp:"With no curb, turn your wheels to the right so the vehicle rolls away from the road if the brakes fail."},
+ {q:"A solid yellow traffic light means:",
+  opts:["Caution — the light is about to turn red","Speed up to clear the intersection","The light just turned green","Stop and remain stopped"],correct:0,
+  exp:"A yellow light means caution; the light is about to turn red. Stop if you can do so safely."},
+ {q:"A flashing red traffic signal light means:",
+  opts:["Stop, then proceed when it is safe","Slow down only","The same as a green light","Speed up"],correct:0,
+  exp:"A flashing red light means STOP; after stopping you may proceed when safe."},
+ {q:"A flashing yellow traffic signal light means:",
+  opts:["Slow down and proceed with caution","Stop completely","Speed up","The same as a red light"],correct:0,
+  exp:"A flashing yellow light is a warning to proceed with caution."},
+ {q:"A red arrow signal means:",
+  opts:["Stop — do not turn in the arrow's direction","Turn after yielding to traffic","Proceed with caution","The same as a green light"],correct:0,
+  exp:"A red arrow means STOP. Remain stopped until a green light or green arrow appears."},
+ {q:"If you are stopped at a red arrow signal, may you turn right?",
+  opts:["No, you may not turn at a red arrow","Yes, after stopping","Yes, always","Yes, if no traffic is coming"],correct:0,
+  exp:"You may not turn right while stopped at a red arrow light."},
+ {q:"A single solid yellow line on the roadway marks:",
+  opts:["The center of a road with two-way traffic","The right edge of the road","A lane for traffic going your direction","A bike lane"],correct:0,
+  exp:"A single solid yellow line marks the center of a road carrying two-way traffic."},
+ {q:"Broken (dashed) white lines on a roadway:",
+  opts:["Separate lanes of traffic moving in the same direction","Separate opposing lanes of traffic","Mark the edge of the road","Always prohibit passing"],correct:0,
+  exp:"Broken white lines separate lanes of traffic traveling in the same direction."},
+ {q:"Double solid white lines mean you should:",
+  opts:["Never change lanes across them","Pass only on the right","Treat them like a center line","Cross only to pass slow vehicles"],correct:0,
+  exp:"Never change lanes over double solid white lines; wait for a single broken white line."},
+ {q:"If your vehicle begins to hydroplane, you should:",
+  opts:["Ease off the gas, slow down gradually, and do NOT brake hard","Brake firmly right away","Accelerate to regain grip","Turn the wheel sharply to one side"],correct:0,
+  exp:"If hydroplaning, slow down gradually and do not use the brakes — sudden braking can cause loss of control."},
+ {q:"On a wet road, you should reduce your speed by about:",
+  opts:["5 to 10 mph","20 mph","Half the speed limit","1 to 2 mph"],correct:0,
+  exp:"Reduce your speed by 5 to 10 mph on a wet road."},
+ {q:"A school bus on an undivided road is stopped with its red lights flashing. You must:",
+  opts:["Stop from either direction until the lights stop flashing","Slow to 15 mph and pass","Stop only if you are behind the bus","Pass carefully on the left"],correct:0,
+  exp:"When red lights flash on an undivided road, stop from either direction until the children are safe and the lights stop. Failing to stop can mean a fine up to $1,000 and a one-year suspension."},
+ {q:"You must report a collision to the DMV if it caused property damage of more than:",
+  opts:["$1,000","$500","$750","$2,000"],correct:0,
+  exp:"Report a collision to DMV if it caused more than $1,000 in property damage, or if anyone was injured or killed."},
+ {q:"After a reportable collision, you must file an SR 1 report with the DMV within:",
+  opts:["10 days","30 days","5 days","15 days"],correct:0,
+  exp:"You must file a Report of Traffic Accident (SR 1) within 10 days; this applies even if you did not cause it."},
+ {q:"After a DUI arrest, you may request a DMV administrative hearing within:",
+  opts:["10 days of the arrest","30 days of the arrest","15 days of the arrest","5 days of the arrest"],correct:0,
+  exp:"You may request a DMV administrative hearing within 10 days from the date of arrest."},
+ {q:"A first DUI conviction will result in your driving privilege being suspended or revoked for:",
+  opts:["One year","Six months","30 days","Two years"],correct:0,
+  exp:"A DUI conviction results in suspension or revocation of your driving privilege for one year."},
+ {q:"How long does a DUI conviction stay on your driving record?",
+  opts:["10 years","5 years","3 years","7 years"],correct:0,
+  exp:"All DUI convictions remain on your driver's record for 10 years."},
+ {q:"For minors (drivers under 18), it is against the law to:",
+  opts:["Use a cell phone or wireless device while driving (except for emergencies)","Use a mounted GPS","Carry one passenger","Drive on a freeway"],correct:0,
+  exp:"A minor may not use a cell phone or electronic wireless device while driving, except to call for emergency help."},
+ {q:"When an emergency vehicle approaches using a siren and red lights, you should:",
+  opts:["Pull over to the right edge of the road and stop","Speed up to get out of the way","Stop immediately in your lane","Move to the left lane"],correct:0,
+  exp:"Yield to the emergency vehicle by driving to the right edge of the road and stopping."},
+ {q:"It is against the law to follow within how many feet of a fire engine or other emergency vehicle?",
+  opts:["300 feet","100 feet","500 feet","150 feet"],correct:0,
+  exp:"Do not follow within 300 feet of any fire engine, law enforcement, or other emergency vehicle responding to a call."},
+ {q:"When passing a bicyclist, you must give them at least:",
+  opts:["3 feet of space","1 foot of space","5 feet of space","2 feet of space"],correct:0,
+  exp:"Give a bicyclist at least three feet of space when passing."},
+ {q:"When you finish parallel parking, your wheels should be within how far of the curb?",
+  opts:["18 inches","6 inches","12 inches","24 inches"],correct:0,
+  exp:"When parallel parked, your wheels should be parallel and within 18 inches of the curb."},
+ {q:"If you move, you must notify the DMV of your new address within:",
+  opts:["10 days","5 days","30 days","15 days"],correct:0,
+  exp:"You must notify DMV of an address change within ten days."},
+ {q:"When you sell a vehicle, you must notify the DMV within:",
+  opts:["5 days","10 days","15 days","30 days"],correct:0,
+  exp:"Notify DMV within five days of selling by completing a Notice of Transfer and Release of Liability."},
+ {q:"When a crossing device or signal warns you a train is coming, you must stop at least how far from the nearest track?",
+  opts:["15 feet","10 feet","50 feet","25 feet"],correct:0,
+  exp:"Stop at least 15 feet from the nearest track when warned a train is coming."},
+ {q:"At a T-intersection without STOP or YIELD signs, the right-of-way belongs to:",
+  opts:["Traffic on the through road going straight","The vehicle that is turning","The vehicle on the smaller road","The larger vehicle"],correct:0,
+  exp:"At a T-intersection without signs, vehicles on the through road (continuing straight) have the right-of-way."},
+ {q:"Neighborhood electric vehicles (NEVs) and low-speed vehicles (LSVs):",
+  opts:["Reach a maximum of 25 mph and cannot use roads with limits over 35 mph","Can travel up to 55 mph","Have no speed restrictions","Reach a maximum of 45 mph"],correct:0,
+  exp:"NEVs and LSVs reach a maximum of 25 mph and are restricted from roads where the limit is greater than 35 mph."},
+ {q:"In California, a bicyclist must wear a helmet if they are under:",
+  opts:["18 years old","16 years old","21 years old","14 years old"],correct:0,
+  exp:"Bicyclists under 18 years old must wear a helmet."},
+ {q:"A vehicle left standing on a freeway may be towed if it remains there for more than:",
+  opts:["Four hours","Two hours","Eight hours","Twenty-four hours"],correct:0,
+  exp:"A vehicle stopped, parked, or left standing on a freeway for more than four hours may be removed."},
+ {q:"Pedestrians at an intersection:",
+  opts:["Always have the right-of-way","Must yield to all turning vehicles","Have the right-of-way only at green lights","Never have the right-of-way"],correct:0,
+  exp:"Pedestrians always have the right-of-way; check for them before turning or proceeding."},
+ {q:"When you park on any hill, in addition to turning your wheels you should always:",
+  opts:["Set the parking brake and leave the vehicle in park (or in gear)","Leave the vehicle in neutral","Turn the engine off only","Leave a window open"],correct:0,
+  exp:"Always set the parking brake and leave the vehicle in park, or in gear for a manual transmission."}
+];
+
+/* ============================================================
+   APP LOGIC
+   ============================================================ */
+const TEST_SIZE = 36, PASS = 30;
+let test = [], answers = [], pos = 0, showAll = false, lastResult = null;
+const $ = id => document.getElementById(id);
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startTest(){
+  const pool = shuffle(BANK).slice(0, Math.min(TEST_SIZE, BANK.length));
+  // If bank smaller than 36, pad by reusing extra shuffled questions (kept distinct where possible)
+  while(pool.length < TEST_SIZE){ pool.push(shuffle(BANK)[0]); }
+  test = pool.map(item=>{
+    const correctText = item.opts[item.correct];
+    const shOpts = shuffle(item.opts);
+    return {q:item.q, opts:shOpts, correctIdx:shOpts.indexOf(correctText), exp:item.exp};
+  });
+  answers = new Array(TEST_SIZE).fill(null);
+  pos = 0; showAll = false;
+  $('start').classList.add('hidden');
+  $('results').classList.add('hidden');
+  $('quiz').classList.remove('hidden');
+  window.scrollTo(0,0);
+  renderQ();
+}
+
+function renderQ(){
+  const item = test[pos];
+  $('qNum').textContent = `Question ${pos+1} of ${TEST_SIZE}`;
+  $('posTxt').textContent = `Q${pos+1}`;
+  $('qText').textContent = item.q;
+  const letters = ['A','B','C','D','E'];
+  $('optBox').innerHTML = item.opts.map((o,i)=>`
+    <button class="opt ${answers[pos]===i?'sel':''}" onclick="pick(${i})">
+      <span class="letter">${letters[i]}</span><span>${o}</span>
+    </button>`).join('');
+  const answered = answers.filter(a=>a!==null).length;
+  $('answeredCount').textContent = answered;
+  $('barFill').style.width = (answered/TEST_SIZE*100)+'%';
+  $('prevBtn').style.visibility = pos===0 ? 'hidden':'visible';
+  const last = pos===TEST_SIZE-1;
+  $('nextBtn').classList.toggle('hidden', last);
+  // show submit button only on last question
+  $('submitBtn').classList.toggle('hidden', !last);
+}
+
+function pick(i){ answers[pos]=i; renderQ(); }
+function go(d){ pos = Math.max(0, Math.min(TEST_SIZE-1, pos+d)); renderQ(); window.scrollTo(0,0); }
+
+function submitTest(){
+  const unanswered = answers.filter(a=>a===null).length;
+  if(unanswered>0){
+    const first = answers.indexOf(null);
+    if(!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?\n(Cancel to jump to the first one.)`)){
+      pos = first; renderQ(); window.scrollTo(0,0); return;
+    }
+  }
+  let score = 0;
+  test.forEach((item,i)=>{ if(answers[i]===item.correctIdx) score++; });
+  lastResult = {score, total:TEST_SIZE};
+  saveHistory(score);
+  showResults(score);
+}
+
+function showResults(score){
+  $('quiz').classList.add('hidden');
+  $('results').classList.remove('hidden');
+  window.scrollTo(0,0);
+  const pct = Math.round(score/TEST_SIZE*100);
+  const passed = score>=PASS;
+  $('scoreNum').textContent = `${score}/${TEST_SIZE}`;
+  $('scorePct').textContent = `${pct}%`;
+  const v = $('verdict'), vs = $('verdictSub');
+  v.textContent = passed ? 'PASS ✓' : 'Not yet';
+  v.className = 'verdict ' + (passed?'pass':'fail');
+  vs.textContent = passed
+    ? `You needed 30 to pass — nice work. Keep taking these until you pass with 100% regularly.`
+    : `You needed ${PASS} correct (you got ${score}). Review the misses below and try again.`;
+  // animate ring
+  const fg = $('ringFg'), C = 402;
+  fg.setAttribute('stroke', passed ? 'var(--green)' : 'var(--red)');
+  fg.style.transition='none'; fg.style.strokeDashoffset=C;
+  requestAnimationFrame(()=>{fg.style.transition='stroke-dashoffset 1s ease';fg.style.strokeDashoffset=C-(C*score/TEST_SIZE);});
+  buildReview();
+}
+
+function buildReview(){
+  const wrong = test.filter((item,i)=>answers[i]!==item.correctIdx).length;
+  $('reviewHint').textContent = wrong===0
+    ? 'Perfect score — every answer correct. Showing all questions for reference.'
+    : `You missed ${wrong} question(s). They are shown first. Tap below to see all 36.`;
+  $('toggleBtn').textContent = showAll ? 'Show misses only' : 'Show all 36';
+  const letters=['A','B','C','D','E'];
+  const rows = test.map((item,i)=>({item,i,correct:answers[i]===item.correctIdx}));
+  const list = showAll ? rows : rows.filter(r=>!r.correct);
+  if(list.length===0){ $('reviewBox').innerHTML = `<p class="hint" style="text-align:center">Nothing missed 🎉</p>`; return; }
+  $('reviewBox').innerHTML = list.map(({item,i,correct})=>{
+    const your = answers[i];
+    const yourHtml = your===null
+      ? `<div class="ans you-wrong"><span class="ic">✗</span><span>You left this blank</span></div>`
+      : (!correct ? `<div class="ans you-wrong"><span class="ic">✗</span><span>Your answer: ${letters[your]}. ${item.opts[your]}</span></div>`:'');
+    const correctHtml = `<div class="ans correct"><span class="ic">✓</span><span>Correct: ${letters[item.correctIdx]}. ${item.opts[item.correctIdx]}</span></div>`;
+    return `<div class="rq ${correct?'right':'wrong'}">
+      <div class="qt">${i+1}. ${item.q}</div>
+      ${yourHtml}${correctHtml}
+      <div class="exp"><b>Why:</b> ${item.exp}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleReview(){ showAll=!showAll; buildReview(); }
+function backToStart(){
+  $('results').classList.add('hidden');
+  $('quiz').classList.add('hidden');
+  $('start').classList.remove('hidden');
+  renderHistory();
+  window.scrollTo(0,0);
+}
+
+/* ---- daily history (graceful if storage blocked) ---- */
+function saveHistory(score){
+  try{
+    const h = JSON.parse(localStorage.getItem('caDmvHistory')||'[]');
+    h.unshift({d:new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+               score, pass:score>=PASS});
+    localStorage.setItem('caDmvHistory', JSON.stringify(h.slice(0,20)));
+  }catch(e){/* storage unavailable; skip */}
+}
+function renderHistory(){
+  let h=[];
+  try{ h = JSON.parse(localStorage.getItem('caDmvHistory')||'[]'); }catch(e){}
+  const box=$('historyBox');
+  if(!h.length){ box.innerHTML=''; return; }
+  const passes = h.filter(x=>x.pass).length;
+  box.innerHTML = `<h3>Your recent attempts</h3>
+    ${h.map(x=>`<div class="hrow"><span>${x.d}</span>
+       <span><b>${x.score}/36</b> &nbsp;<span class="pill ${x.pass?'pass':'fail'}">${x.pass?'PASS':'Below'}</span></span></div>`).join('')}
+    <div style="text-align:right"><button class="clearbtn" onclick="clearHistory()">Clear history</button></div>`;
+}
+function clearHistory(){ try{localStorage.removeItem('caDmvHistory');}catch(e){} renderHistory(); }
+
+renderHistory();
+</script>
+</body>
+</html>
