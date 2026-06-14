@@ -268,16 +268,28 @@
   .mistakes-more{display:block;background:none;border:none;font-size:12px;color:var(--p);
     cursor:pointer;font-weight:700;text-decoration:underline;margin:4px auto 0}
 
-  /* ── Mobile: fit quiz on one screen, no scrolling required ── */
+  /* ── Mobile: full-viewport quiz, no scrolling required ── */
   @media(max-width:480px){
-    /* Hide the header during quiz to reclaim ~180px */
-    body.in-quiz{padding-top:0}
-    body.in-quiz header{display:none}
-    body.in-quiz #quiz.card{margin-top:0}
+    /* Body resets */
+    body{padding:0;background:var(--paper2)}
+    .footer-note{padding:0 16px 24px}
 
-    /* Tighten body & card */
-    body{padding-left:10px;padding-right:10px;padding-bottom:24px}
-    #quiz{padding:12px 12px 14px}
+    /* ── QUIZ MODE: card fills the entire screen ── */
+    body.in-quiz{padding:0}
+    body.in-quiz header{display:none}
+    body.in-quiz .footer-note{display:none}
+    body.in-quiz .wrap{display:flex;flex-direction:column;min-height:100vh;min-height:100svh;min-height:100dvh}
+    body.in-quiz #quiz{
+      flex:1;                        /* stretch to fill remaining viewport */
+      display:flex;
+      flex-direction:column;
+      margin:0;padding:12px 14px 0;
+      border-radius:0;border:none;box-shadow:none;
+    }
+    /* optBox grows to absorb spare space, keeping nav pinned to bottom */
+    body.in-quiz #quiz #optBox{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+    body.in-quiz #quiz .navrow{margin-top:auto;padding-bottom:max(env(safe-area-inset-bottom,0px),12px)}
+    body.in-quiz #quiz #submitBtn{margin-top:6px;padding-bottom:max(env(safe-area-inset-bottom,0px),12px)}
 
     /* Topbar */
     .topbar{padding:7px 2px;margin:-2px 0 9px}
@@ -288,7 +300,7 @@
     .qnum{font-size:11px;padding:3px 10px;margin-bottom:7px}
     .qtext{font-size:15px;line-height:1.35;margin-bottom:11px}
 
-    /* Answer options — keep 44px min touch target */
+    /* Answer options — 44px min touch target */
     .opt{padding:9px 11px;margin-bottom:6px;font-size:14px;
          gap:10px;border-radius:11px;border-width:1.5px;min-height:44px}
     .opt:hover{transform:none}
@@ -300,20 +312,20 @@
               gap:8px;border-radius:10px;border-width:1.5px}
     .feedback .fb-icon{font-size:15px}
 
-    /* Nav row */
-    .navrow{margin-top:9px;gap:8px}
-    .navrow .btn{padding:11px 10px;font-size:14px;border-radius:11px}
-    #submitBtn{margin-top:9px;padding:12px 10px;font-size:14px;border-radius:11px}
+    /* Nav buttons */
+    .navrow{gap:8px}
+    .navrow .btn{padding:13px 10px;font-size:14px;border-radius:11px}
+    #submitBtn{padding:13px 10px;font-size:14px;border-radius:11px;margin-top:6px}
 
-    /* Home page — tighten header so it doesn't dominate */
-    header{margin-bottom:14px}
+    /* Home page — compact header */
+    header{margin-bottom:14px;padding-top:16px}
     .crest{width:56px;height:56px;font-size:26px;border-radius:16px;margin-bottom:10px}
     h1{font-size:clamp(22px,6vw,30px);letter-spacing:-1px}
     .sub{font-size:13px;margin-top:6px}
     .tag{font-size:11px;margin-top:10px;padding:4px 12px}
+    #start.card{border-radius:16px;margin:0 10px;padding:16px 13px}
 
     /* Home dashboard */
-    #start.card{padding:16px 13px}
     .streak-row{gap:8px}
     .streak-card{padding:12px 10px}
     .s-emoji{font-size:24px}
