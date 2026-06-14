@@ -332,7 +332,7 @@
       border-radius:0;border:none;box-shadow:none;
     }
     /* optBox grows to absorb spare space, keeping nav pinned to bottom */
-    body.in-quiz #quiz #optBox{flex:1;display:flex;flex-direction:column;gap:6px}
+    body.in-quiz #quiz #optBox{flex:1;display:flex;flex-direction:column;gap:8px}
     body.in-quiz #quiz #optBox .opt{flex:1;margin-bottom:0;align-items:center}
     body.in-quiz #quiz #optBox .feedback{flex:none;margin-top:2px}
     body.in-quiz #quiz .navrow{margin-top:auto;padding-bottom:max(env(safe-area-inset-bottom,0px),12px)}
@@ -344,25 +344,25 @@
     .bar{height:7px;margin:0 7px}
 
     /* Question label + text */
-    .qnum{font-size:11px;padding:3px 10px;margin-bottom:7px}
-    .qtext{font-size:15px;line-height:1.35;margin-bottom:11px}
+    .qnum{font-size:13px;padding:3px 10px;margin-bottom:7px}
+    .qtext{font-size:18px;line-height:1.4;margin-bottom:11px}
 
     /* Answer options — 44px min touch target */
-    .opt{padding:9px 11px;margin-bottom:6px;font-size:14px;
-         gap:10px;border-radius:11px;border-width:1.5px;min-height:44px}
+    .opt{padding:11px 14px;margin-bottom:6px;font-size:17px;font-weight:600;
+         gap:13px;border-radius:11px;border-width:1.5px;min-height:44px}
     .opt:hover{transform:none}
     .opt:active{transform:scale(.98)}
-    .letter{width:27px;height:27px;font-size:12px;border-radius:7px}
+    .letter{width:34px;height:34px;font-size:15px;border-radius:9px}
 
     /* Feedback strip */
-    .feedback{padding:8px 12px;font-size:13px;margin-top:5px;
-              gap:8px;border-radius:10px;border-width:1.5px}
-    .feedback .fb-icon{font-size:15px}
+    .feedback{padding:10px 14px;font-size:15px;margin-top:5px;
+              gap:10px;border-radius:10px;border-width:1.5px}
+    .feedback .fb-icon{font-size:18px}
 
     /* Nav buttons */
     .navrow{gap:8px}
-    .navrow .btn{padding:13px 10px;font-size:14px;border-radius:11px}
-    #submitBtn{padding:13px 10px;font-size:14px;border-radius:11px;margin-top:6px}
+    .navrow .btn{padding:14px 10px;font-size:16px;border-radius:11px}
+    #submitBtn{padding:14px 10px;font-size:16px;border-radius:11px;margin-top:6px}
 
     /* Home page — compact header */
     header{margin-bottom:14px;padding-top:16px}
