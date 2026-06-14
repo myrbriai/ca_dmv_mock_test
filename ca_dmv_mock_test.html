@@ -268,6 +268,51 @@
   .mistakes-more{display:block;background:none;border:none;font-size:12px;color:var(--p);
     cursor:pointer;font-weight:700;text-decoration:underline;margin:4px auto 0}
 
+  /* ── Dark mode toggle button ── */
+  .dark-btn{background:none;border:none;font-size:20px;cursor:pointer;
+    line-height:1;padding:2px 4px;flex:none;opacity:.8;transition:opacity .15s}
+  .dark-btn:hover{opacity:1}
+
+  /* ── Dark mode overrides ── */
+  html.dark{
+    --paper:#0f0f1a;--paper2:#191929;--ink:#dcdcf5;--muted:#7a7a9a;
+    --line:#2e2e50;--p3:#19173a;
+    --shadow:0 4px 24px rgba(0,0,0,.55);--shadow-lg:0 8px 40px rgba(0,0,0,.65);
+    --green-bg:#091a10;--red-bg:#1a0909;
+    --green-glow:rgba(22,163,74,.12);--red-glow:rgba(220,38,38,.12);
+  }
+  html.dark body{
+    background:
+      radial-gradient(800px 600px at 80% -5%,rgba(124,58,237,.10),transparent 60%),
+      radial-gradient(600px 500px at -5% 105%,rgba(180,83,9,.06),transparent 55%),
+      var(--paper);
+  }
+  html.dark .card{background:var(--paper2);border-color:var(--line)}
+  html.dark .opt{background:#1f1f38;border-color:var(--line);color:var(--ink)}
+  html.dark .opt:hover{background:#26264a;border-color:var(--p2)}
+  html.dark .opt.locked{opacity:.28}
+  html.dark .letter{background:#2a2a4a;color:#a78bfa}
+  html.dark .hrow{background:#1f1f38;border-color:var(--line)}
+  html.dark .rq,html.dark .mcard{background:#1f1f38;border-color:var(--line)}
+  html.dark .stat,html.dark .pstat{background:#1f1f38;border-color:#3a3a5c}
+  html.dark .streak-card.sc-daily{background:linear-gradient(135deg,#1a1100,#261900);border-color:#b45309}
+  html.dark .streak-card.sc-pass{background:linear-gradient(135deg,#051208,#07180b);border-color:#166534}
+  html.dark .badge.earned{background:linear-gradient(135deg,#1a1535,#1e1a40);border-color:#7c3aed}
+  html.dark .badge.locked{background:#141425;border-color:#252540;opacity:.45}
+  html.dark .topbar{background:rgba(15,15,26,.97);border-bottom-color:var(--line)}
+  html.dark .bar{background:#27274a}
+  html.dark .btn-ghost{background:#1f1f38;border-color:var(--line);color:#a78bfa}
+  html.dark .btn-ghost:hover{background:#26264a;border-color:var(--p2)}
+  html.dark .toggle button{background:#1f1f38;border-color:var(--line);color:#a78bfa}
+  html.dark .mistakes-empty{border-color:var(--line)}
+  html.dark .exp,html.dark .mcard-exp{border-top-color:var(--line)}
+  html.dark .qnum{color:var(--p2);background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.3)}
+  html.dark .tag{color:#fcd34d;background:rgba(180,83,9,.18);border-color:rgba(180,83,9,.4)}
+  html.dark .ring svg circle:first-child{stroke:#27274a}
+  html.dark .award-cat-lbl{color:var(--muted)}
+  html.dark .history h3,html.dark .hist-head h3{color:var(--ink)}
+  html.dark .clearbtn,html.dark .hist-more,html.dark .mistakes-more,html.dark .mistakes-reset{color:var(--muted)}
+
   /* ── Mobile: full-viewport quiz, no scrolling required ── */
   @media(max-width:480px){
     /* Body resets */
@@ -287,7 +332,9 @@
       border-radius:0;border:none;box-shadow:none;
     }
     /* optBox grows to absorb spare space, keeping nav pinned to bottom */
-    body.in-quiz #quiz #optBox{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+    body.in-quiz #quiz #optBox{flex:1;display:flex;flex-direction:column;gap:6px}
+    body.in-quiz #quiz #optBox .opt{flex:1;margin-bottom:0;align-items:center}
+    body.in-quiz #quiz #optBox .feedback{flex:none;margin-top:2px}
     body.in-quiz #quiz .navrow{margin-top:auto;padding-bottom:max(env(safe-area-inset-bottom,0px),12px)}
     body.in-quiz #quiz #submitBtn{margin-top:6px;padding-bottom:max(env(safe-area-inset-bottom,0px),12px)}
 
@@ -347,6 +394,9 @@
     <h1>DMV Practice Quiz</h1>
     <p class="sub">California Class C · Level up before the real test</p>
     <div class="tag">🏆 2025 Handbook Edition</div>
+    <div style="margin-top:12px">
+      <button class="dark-btn" onclick="toggleDark()" title="Toggle dark mode" style="font-size:22px">🌙</button>
+    </div>
   </header>
 
   <!-- ===== START SCREEN ===== -->
@@ -402,6 +452,7 @@
       <span class="progress-txt">⚡ <span id="answeredCount">0</span>/36</span>
       <div class="bar"><div class="bar-fill" id="barFill"></div></div>
       <span class="progress-txt" id="posTxt">Q1</span>
+      <button class="dark-btn" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
     </div>
     <div class="qnum" id="qNum">Question 1 of 36</div>
     <div class="qtext" id="qText"></div>
@@ -1060,6 +1111,16 @@ function clearHistory(){
   histShowAll=false;
   renderHome();
 }
+
+/* ── Dark mode ── */
+function applyDark(on){
+  document.documentElement.classList.toggle('dark', on);
+  const icon = on ? '☀️' : '🌙';
+  document.querySelectorAll('.dark-btn').forEach(b => b.textContent = icon);
+  try{ localStorage.setItem('dmvDark', on ? '1' : '0'); }catch(e){}
+}
+function toggleDark(){ applyDark(!document.documentElement.classList.contains('dark')); }
+(function(){ if(localStorage.getItem('dmvDark')==='1') applyDark(true); })();
 
 renderHome();
 </script>
