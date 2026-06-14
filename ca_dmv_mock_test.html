@@ -6,160 +6,330 @@
 <title>California DMV Mock Test — Class C</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0b2545; --navy2:#13315c; --gold:#c8932c; --gold-soft:#e7c87a;
-    --paper:#f6f1e7; --paper2:#fbf8f1; --ink:#1c2530; --muted:#5c6b7a;
-    --green:#1f7a4d; --green-bg:#e6f3ec; --red:#b3261e; --red-bg:#fbeae9;
-    --line:#dcd3c2; --shadow:0 10px 40px rgba(11,37,69,.12);
-    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --p:#5b21b6; --p2:#7c3aed; --p3:#ede9fe;
+    --acc:#f59e0b; --acc2:#fcd34d; --acc-dark:#b45309;
+    --paper:#f5f3ff; --paper2:#ffffff;
+    --ink:#1e1b4b; --muted:#6b7280;
+    --green:#16a34a; --green-bg:#dcfce7; --green-glow:rgba(22,163,74,.22);
+    --red:#dc2626; --red-bg:#fee2e2; --red-glow:rgba(220,38,38,.2);
+    --line:#ddd6fe;
+    --shadow:0 4px 24px rgba(91,33,182,.13);
+    --shadow-lg:0 8px 40px rgba(91,33,182,.22);
     --sans:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
-    font-family:var(--sans); color:var(--ink); line-height:1.55;
+    font-family:var(--sans);color:var(--ink);line-height:1.55;
     background:
-      radial-gradient(900px 500px at 85% -10%, rgba(200,147,44,.10), transparent 60%),
-      radial-gradient(700px 500px at -10% 110%, rgba(19,49,92,.10), transparent 55%),
+      radial-gradient(800px 600px at 80% -5%,rgba(139,92,246,.14),transparent 60%),
+      radial-gradient(600px 500px at -5% 105%,rgba(245,158,11,.10),transparent 55%),
       var(--paper);
-    min-height:100vh; padding:28px 16px 80px;
+    min-height:100vh;padding:28px 16px 80px;
   }
-  .wrap{max-width:780px;margin:0 auto}
+  .wrap{max-width:760px;margin:0 auto}
 
-  /* Header */
-  header{text-align:center; margin-bottom:22px}
+  /* ── Header ── */
+  header{text-align:center;margin-bottom:28px}
   .crest{
     display:inline-flex;align-items:center;justify-content:center;
-    width:58px;height:58px;border-radius:50%;
-    background:linear-gradient(160deg,var(--navy),var(--navy2));
-    color:var(--gold-soft);font-family:var(--serif);font-weight:700;font-size:24px;
-    border:2px solid var(--gold); box-shadow:var(--shadow); margin-bottom:12px;
-    letter-spacing:.5px;
+    width:76px;height:76px;border-radius:22px;font-size:38px;
+    background:linear-gradient(135deg,var(--p),var(--p2));
+    box-shadow:0 8px 32px rgba(91,33,182,.38),0 0 0 5px rgba(139,92,246,.18);
+    margin-bottom:16px;animation:float 3.2s ease-in-out infinite;
   }
-  h1{font-family:var(--serif);font-weight:600;color:var(--navy);
-     font-size:clamp(26px,5vw,38px);line-height:1.05;letter-spacing:-.5px}
-  .sub{color:var(--muted);margin-top:8px;font-size:15px}
-  .tag{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:600;
-    letter-spacing:.12em;text-transform:uppercase;color:var(--navy);
-    background:rgba(200,147,44,.16);border:1px solid rgba(200,147,44,.4);
-    padding:5px 12px;border-radius:999px}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  h1{font-weight:900;color:var(--ink);font-size:clamp(26px,5.5vw,40px);
+     line-height:1.05;letter-spacing:-1.5px}
+  .sub{color:var(--muted);margin-top:8px;font-size:15px;font-weight:500}
+  .tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:800;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--acc-dark);
+    background:rgba(245,158,11,.13);border:2px solid rgba(245,158,11,.35);
+    padding:5px 14px;border-radius:999px}
 
-  /* Cards */
-  .card{background:var(--paper2);border:1px solid var(--line);border-radius:16px;
-    box-shadow:var(--shadow);padding:26px 24px;margin-top:18px}
+  /* ── Cards ── */
+  .card{background:var(--paper2);border:2px solid var(--line);border-radius:22px;
+    box-shadow:var(--shadow);padding:28px 24px;margin-top:20px}
 
-  /* Start screen */
-  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 4px}
-  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-  .stat b{display:block;font-family:var(--serif);font-size:26px;color:var(--navy);font-weight:700}
-  .stat span{font-size:12px;color:var(--muted)}
-  .start-note{color:var(--muted);font-size:14px;margin-top:6px}
+  /* ── Start screen ── */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 6px}
+  .stat{background:linear-gradient(135deg,#faf8ff,var(--p3));border:2px solid #c4b5fd;
+    border-radius:16px;padding:18px 12px;text-align:center;
+    transition:transform .15s,box-shadow .15s}
+  .stat:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(91,33,182,.15)}
+  .stat-icon{font-size:26px;display:block;margin-bottom:6px}
+  .stat b{display:block;font-size:30px;font-weight:900;color:var(--p);line-height:1}
+  .stat span{font-size:12px;color:var(--muted);font-weight:600}
+  .start-note{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.65}
 
-  .btn{font-family:var(--sans);font-weight:600;font-size:16px;cursor:pointer;
-    border:none;border-radius:11px;padding:14px 22px;transition:transform .08s ease,filter .15s ease;
-    display:inline-flex;align-items:center;gap:9px;justify-content:center}
-  .btn:active{transform:translateY(1px)}
-  .btn-primary{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff}
-  .btn-primary:hover{filter:brightness(1.12)}
-  .btn-gold{background:linear-gradient(160deg,var(--gold),#b07f1f);color:#fff}
-  .btn-gold:hover{filter:brightness(1.08)}
-  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--navy)}
-  .btn-ghost:hover{border-color:var(--gold)}
-  .btn-block{width:100%;margin-top:18px}
+  /* ── Buttons ── */
+  .btn{font-family:var(--sans);font-weight:800;font-size:16px;cursor:pointer;
+    border:none;border-radius:14px;padding:15px 26px;
+    display:inline-flex;align-items:center;gap:10px;justify-content:center;
+    transition:transform .1s ease,box-shadow .1s ease,filter .12s ease;
+    position:relative;letter-spacing:-.2px}
+  .btn:active{transform:translateY(3px)!important;box-shadow:none!important}
 
-  /* History */
-  .history{margin-top:18px}
-  .history h3{font-family:var(--serif);font-size:18px;color:var(--navy);font-weight:600;margin-bottom:10px}
+  .btn-primary{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;
+    box-shadow:0 4px 18px rgba(91,33,182,.42),0 3px 0 #4c1d95}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 7px 24px rgba(91,33,182,.5),0 3px 0 #4c1d95}
+
+  .btn-gold{background:linear-gradient(135deg,var(--acc),#d97706);color:#fff;
+    box-shadow:0 4px 18px rgba(245,158,11,.42),0 3px 0 var(--acc-dark)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 7px 24px rgba(245,158,11,.5),0 3px 0 var(--acc-dark)}
+
+  .btn-ghost{background:#fff;border:2px solid var(--line);color:var(--p);
+    box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .btn-ghost:hover{border-color:var(--p2);transform:translateY(-2px);box-shadow:0 4px 14px rgba(91,33,182,.14)}
+  .btn-block{width:100%;margin-top:20px}
+
+  /* ── History ── */
+  .history{margin-top:24px}
+  .history h3{font-size:16px;color:var(--ink);font-weight:800;margin-bottom:10px}
   .hrow{display:flex;justify-content:space-between;align-items:center;font-size:14px;
-    padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;margin-bottom:7px}
-  .pill{font-weight:700;font-size:12.5px;padding:3px 10px;border-radius:999px}
+    padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px}
+  .pill{font-weight:800;font-size:12px;padding:4px 12px;border-radius:999px}
   .pill.pass{background:var(--green-bg);color:var(--green)}
   .pill.fail{background:var(--red-bg);color:var(--red)}
-  .clearbtn{background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline}
+  .clearbtn{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline}
 
-  /* Quiz */
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;
-    position:sticky;top:0;background:rgba(246,241,231,.92);backdrop-filter:blur(6px);
-    padding:10px 4px;margin:-4px 0 6px;z-index:5;border-bottom:1px solid transparent}
-  .progress-txt{font-weight:600;color:var(--navy);font-size:14px}
-  .bar{flex:1;height:8px;background:#e5ddcd;border-radius:999px;overflow:hidden;margin:0 12px}
-  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--navy));width:0;transition:width .25s ease}
-  .qnum{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
-  .qtext{font-family:var(--serif);font-size:clamp(19px,3.6vw,23px);color:var(--navy);
-    font-weight:600;line-height:1.3;margin:6px 0 20px}
-  .opt{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;
-    background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:15px 16px;
-    margin-bottom:11px;cursor:pointer;font-size:15.5px;color:var(--ink);
-    transition:border-color .12s,background .12s,transform .06s}
-  .opt:hover{border-color:var(--gold)}
-  .opt:active{transform:translatey(1px)}
-  .opt.sel{border-color:var(--navy);background:#eef2f8}
-  .letter{flex:none;width:27px;height:27px;border-radius:7px;background:#eef0f3;
-    color:var(--navy);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
-  .opt.sel .letter{background:var(--navy);color:#fff}
-  .navrow{display:flex;gap:12px;margin-top:8px}
+  /* ── Quiz topbar ── */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    position:sticky;top:0;background:rgba(245,243,255,.95);backdrop-filter:blur(8px);
+    padding:12px 2px;margin:-4px 0 16px;z-index:5;border-bottom:2px solid var(--p3)}
+  .progress-txt{font-weight:800;color:var(--p);font-size:13px;white-space:nowrap}
+  .bar{flex:1;height:11px;background:#ede9fe;border-radius:999px;overflow:hidden;margin:0 10px;
+    box-shadow:inset 0 2px 4px rgba(0,0,0,.08)}
+  .bar-fill{height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,var(--p),var(--p2),var(--acc));
+    transition:width .3s ease;box-shadow:0 0 10px rgba(139,92,246,.55)}
+
+  /* ── Question ── */
+  .qnum{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--p);background:rgba(139,92,246,.1);
+    border:2px solid rgba(139,92,246,.25);padding:4px 14px;border-radius:999px;margin-bottom:12px}
+  .qtext{font-size:clamp(17px,3.4vw,21px);color:var(--ink);font-weight:700;
+    line-height:1.4;margin-bottom:22px}
+
+  /* ── Answer options ── */
+  .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:14px;padding:16px 18px;
+    margin-bottom:10px;cursor:pointer;font-size:15.5px;color:var(--ink);font-weight:500;
+    transition:border-color .12s,background .12s,transform .1s,box-shadow .12s;
+    box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .opt:hover{border-color:var(--p2);background:#faf8ff;transform:translateX(5px);
+    box-shadow:0 4px 18px rgba(91,33,182,.13)}
+  .opt:active{transform:translateX(2px)}
+  .opt.sel{border-color:var(--p);background:var(--p3)}
+  .letter{flex:none;width:32px;height:32px;border-radius:9px;
+    background:#ede9fe;color:var(--p);font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;transition:background .12s,color .12s}
+  .opt.sel .letter{background:var(--p);color:#fff}
+
+  /* feedback states */
+  .opt.correct{border-color:var(--green);background:var(--green-bg);pointer-events:none;
+    box-shadow:0 0 0 3px var(--green-glow);animation:popIn .3s ease}
+  .opt.correct .letter{background:var(--green);color:#fff}
+  .opt.wrong{border-color:var(--red);background:var(--red-bg);pointer-events:none;
+    animation:shake .4s ease}
+  .opt.wrong .letter{background:var(--red);color:#fff}
+  .opt.locked{pointer-events:none;opacity:.4}
+
+  @keyframes popIn{0%{transform:scale(.97)}60%{transform:scale(1.025)}100%{transform:scale(1)}}
+  @keyframes shake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-7px)}40%{transform:translateX(7px)}
+    60%{transform:translateX(-4px)}80%{transform:translateX(4px)}
+  }
+
+  .feedback{border-radius:13px;padding:14px 18px;margin-top:8px;font-size:15px;font-weight:700;
+    display:flex;align-items:center;gap:12px;border:2px solid;
+    animation:slideUp .22s ease}
+  @keyframes slideUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+  .feedback.correct{background:var(--green-bg);color:var(--green);border-color:var(--green)}
+  .feedback.wrong{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+  .feedback .fb-icon{font-size:20px;flex:none}
+
+  .navrow{display:flex;gap:12px;margin-top:16px}
   .navrow .btn{flex:1}
 
-  /* Results */
-  .scorewrap{text-align:center;padding:8px 0 4px}
-  .ring{width:150px;height:150px;margin:6px auto 8px;position:relative}
+  /* ── Results ── */
+  .scorewrap{text-align:center;padding:8px 0 12px}
+  .ring{width:160px;height:160px;margin:8px auto 14px;position:relative}
   .ring svg{transform:rotate(-90deg)}
-  .ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .ring .pct b{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--navy);line-height:1}
-  .ring .pct span{font-size:12px;color:var(--muted);margin-top:3px}
-  .verdict{font-family:var(--serif);font-size:26px;font-weight:700;margin-top:6px}
+  .ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center}
+  .ring .pct b{font-size:36px;font-weight:900;color:var(--ink);line-height:1}
+  .ring .pct span{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
+  .verdict{font-size:30px;font-weight:900;margin-top:8px;letter-spacing:-1px}
   .verdict.pass{color:var(--green)}.verdict.fail{color:var(--red)}
-  .verdict-sub{color:var(--muted);font-size:14.5px;margin-top:4px}
+  .verdict-sub{color:var(--muted);font-size:14.5px;margin-top:6px;font-weight:500}
 
-  .review{margin-top:22px}
-  .review h3{font-family:var(--serif);font-size:19px;color:var(--navy);font-weight:600;margin-bottom:4px}
+  /* ── Review ── */
+  .review{margin-top:26px}
+  .review h3{font-size:20px;color:var(--ink);font-weight:900;margin-bottom:4px}
   .review .hint{color:var(--muted);font-size:13.5px;margin-bottom:14px}
-  .rq{border:1px solid var(--line);border-radius:13px;padding:16px 16px;margin-bottom:13px;background:#fff}
-  .rq.wrong{border-left:4px solid var(--red)}
-  .rq.right{border-left:4px solid var(--green)}
-  .rq .qt{font-weight:600;color:var(--navy);font-size:15.5px;margin-bottom:9px}
-  .ans{font-size:14px;margin:3px 0;display:flex;gap:8px;align-items:baseline}
-  .ans .ic{flex:none;font-weight:700}
-  .ans.you-wrong{color:var(--red)} .ans.correct{color:var(--green)}
-  .exp{font-size:13.5px;color:var(--muted);margin-top:9px;padding-top:9px;border-top:1px dashed var(--line)}
+  .rq{border:2px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;background:#fff}
+  .rq.wrong{border-left:5px solid var(--red)}
+  .rq.right{border-left:5px solid var(--green)}
+  .rq .qt{font-weight:700;color:var(--ink);font-size:15px;margin-bottom:10px}
+  .ans{font-size:14px;margin:4px 0;display:flex;gap:8px;align-items:baseline}
+  .ans .ic{flex:none;font-weight:800}
+  .ans.you-wrong{color:var(--red)}.ans.correct{color:var(--green)}
+  .exp{font-size:13.5px;color:var(--muted);margin-top:10px;padding-top:10px;
+    border-top:1px dashed var(--line)}
   .exp b{color:var(--ink)}
-  .toggle{margin:4px 0 18px;text-align:center}
-  .toggle button{background:none;border:1px solid var(--line);border-radius:999px;
-    padding:7px 16px;font-size:13px;color:var(--navy);cursor:pointer;font-weight:600}
-  .footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.6}
+  .toggle{margin:8px 0 20px;text-align:center}
+  .toggle button{background:#fff;border:2px solid var(--line);border-radius:999px;
+    padding:8px 20px;font-size:13px;color:var(--p);cursor:pointer;font-weight:700}
+  .toggle button:hover{border-color:var(--p)}
+  .footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:32px;line-height:1.7}
   .hidden{display:none}
-  @media(max-width:520px){.info-grid{grid-template-columns:1fr 1fr 1fr;gap:8px}.card{padding:20px 16px}}
+  @media(max-width:520px){.card{padding:20px 16px}}
+
+  /* ── Home Dashboard ── */
+  .start-note{color:var(--muted);font-size:13.5px;text-align:center;margin-bottom:16px;font-weight:500}
+
+  .streak-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+  .streak-card{border-radius:18px;padding:16px;display:flex;align-items:center;gap:12px;border:2px solid}
+  .sc-daily{background:linear-gradient(135deg,#fff7ed,#fef3c7);border-color:#f59e0b}
+  .sc-pass{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#16a34a}
+  .s-emoji{font-size:30px;flex:none;line-height:1}
+  .s-body{}
+  .s-num{font-size:30px;font-weight:900;line-height:1;color:var(--ink)}
+  .s-label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+  .s-best{font-size:11px;color:var(--muted);margin-top:4px}
+  .s-active{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;
+    color:var(--green);background:var(--green-bg);padding:2px 8px;border-radius:999px;margin-top:5px}
+
+  .pstats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+  .pstat{background:var(--p3);border:2px solid #c4b5fd;border-radius:14px;padding:12px 8px;text-align:center}
+  .pstat b{display:block;font-size:22px;font-weight:900;color:var(--p);line-height:1.2}
+  .pstat small{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:3px}
+
+  .awards-wrap{margin-top:24px}
+  .awards-wrap > h3{font-size:16px;font-weight:900;color:var(--ink);margin-bottom:14px}
+  .award-cat{margin-bottom:16px}
+  .award-cat-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);margin-bottom:8px}
+  .badges-row{display:flex;gap:8px;flex-wrap:wrap}
+  .badge{border-radius:14px;padding:10px 8px;text-align:center;min-width:70px;border:2px solid;
+    transition:transform .14s,box-shadow .14s}
+  .badge.earned{background:linear-gradient(135deg,#faf5ff,var(--p3));border-color:#a78bfa;
+    box-shadow:0 2px 10px rgba(91,33,182,.14)}
+  .badge.earned:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(91,33,182,.22)}
+  .badge.locked{background:#f9fafb;border-color:#e5e7eb;opacity:.48}
+  .b-icon{font-size:22px;display:block;line-height:1.3}
+  .badge.locked .b-icon{filter:grayscale(1)}
+  .b-name{font-size:10px;font-weight:800;color:var(--ink);margin-top:4px;line-height:1.2}
+  .badge.locked .b-name{color:var(--muted)}
+  .b-req{font-size:9.5px;color:var(--muted);margin-top:2px}
+
+  @keyframes badgePop{
+    0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}
+  }
+  .badge.new-unlock{animation:badgePop .4s cubic-bezier(.34,1.56,.64,1)}
+
+  .hist-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0 10px}
+  .hist-head h3{font-size:16px;font-weight:900;color:var(--ink)}
+  .hist-more{background:none;border:none;font-size:12px;color:var(--p);cursor:pointer;
+    font-weight:700;text-decoration:underline}
+  .hrow{display:flex;justify-content:space-between;align-items:center;font-size:14px;
+    padding:10px 14px;border:2px solid var(--line);border-radius:12px;
+    background:#fff;margin-bottom:8px;font-weight:500}
+  .hrow-score{font-weight:900;font-size:15px;color:var(--ink)}
+  .clearbtn{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;
+    text-decoration:underline;font-weight:600}
+
+  /* ── Persistent Mistakes ── */
+  .mistakes-wrap{margin-top:24px}
+  .mistakes-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .mistakes-hdr h3{font-size:16px;font-weight:900;color:var(--ink)}
+  .mistakes-reset{background:none;border:none;font-size:12px;color:var(--muted);
+    cursor:pointer;text-decoration:underline;font-weight:600}
+  .mistakes-sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+  .mistakes-empty{text-align:center;padding:18px 12px;color:var(--muted);font-size:14px;
+    border:2px dashed var(--line);border-radius:14px;font-weight:500}
+  .mcard{border:2px solid var(--line);border-left:5px solid var(--red);
+    border-radius:14px;padding:16px;margin-bottom:11px;background:#fff}
+  .mcard-head{display:flex;justify-content:space-between;align-items:flex-start;
+    gap:10px;margin-bottom:10px}
+  .mcard-q{font-weight:700;font-size:15px;color:var(--ink);line-height:1.4;flex:1}
+  .mcard-rate{font-size:11px;font-weight:800;background:var(--red-bg);color:var(--red);
+    border-radius:999px;padding:3px 10px;white-space:nowrap;flex:none;align-self:flex-start;margin-top:2px}
+  .mcard-row{font-size:13.5px;margin:5px 0;display:flex;gap:7px;align-items:baseline}
+  .mcard-row.wrong{color:var(--red)}
+  .mcard-row.right{color:var(--green);font-weight:700}
+  .mcard-ic{font-weight:900;flex:none}
+  .mcard-exp{font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;
+    border-top:1px dashed var(--line);line-height:1.55}
+  .mistakes-more{display:block;background:none;border:none;font-size:12px;color:var(--p);
+    cursor:pointer;font-weight:700;text-decoration:underline;margin:4px auto 0}
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="crest">CA</div>
-    <h1>California DMV Mock Test</h1>
-    <p class="sub">Class C Knowledge Exam · Adult (18+) format</p>
-    <div class="tag">Built from the 2025 Driver's Handbook</div>
+    <div class="crest">🚦</div>
+    <h1>DMV Practice Quiz</h1>
+    <p class="sub">California Class C · Level up before the real test</p>
+    <div class="tag">🏆 2025 Handbook Edition</div>
   </header>
 
   <!-- ===== START SCREEN ===== -->
   <section id="start" class="card">
-    <div class="info-grid">
-      <div class="stat"><b>36</b><span>questions</span></div>
-      <div class="stat"><b>30</b><span>to pass (83%)</span></div>
-      <div class="stat"><b>1</b><span>answer each</span></div>
+    <p class="start-note">📋 36 random questions &nbsp;·&nbsp; 🎯 Score 30+ to pass &nbsp;·&nbsp; ⚡ Instant answer feedback</p>
+
+    <!-- Streak cards -->
+    <div class="streak-row">
+      <div class="streak-card sc-daily">
+        <div class="s-emoji" id="dailyIcon">😴</div>
+        <div class="s-body">
+          <div class="s-num" id="dailyNum">0</div>
+          <div class="s-label">Day Streak</div>
+          <div class="s-best" id="dailyBest">Best: 0 days</div>
+          <div id="dailyActive"></div>
+        </div>
+      </div>
+      <div class="streak-card sc-pass">
+        <div class="s-emoji" id="passIcon">🎮</div>
+        <div class="s-body">
+          <div class="s-num" id="passNum">0</div>
+          <div class="s-label">Pass Streak</div>
+          <div class="s-best" id="passBest">Best: 0 in a row</div>
+        </div>
+      </div>
     </div>
-    <p class="start-note">Each test pulls 36 questions at random from a verified bank and shuffles the
-      answer order, so no two days are identical. Answer every question, then submit to see your
-      score and a handbook-based explanation for anything you miss. Aim for 30+ correct.</p>
-    <button class="btn btn-primary btn-block" onclick="startTest()">Start Today's Test &nbsp;→</button>
-    <div id="historyBox" class="history"></div>
+
+    <!-- Personal stats -->
+    <div class="pstats-row">
+      <div class="pstat"><b id="statAttempts">0</b><small>Total Attempts</small></div>
+      <div class="pstat"><b id="statPasses">0</b><small>Total Passes</small></div>
+      <div class="pstat"><b id="statBest">—</b><small>Best Score</small></div>
+    </div>
+
+    <button class="btn btn-primary btn-block" onclick="startTest()">🚀 Start the Quiz!</button>
+
+    <!-- Awards -->
+    <div class="awards-wrap">
+      <h3>🏅 Awards</h3>
+      <div id="awardsBox"></div>
+    </div>
+
+    <!-- Persistent Mistakes -->
+    <div id="mistakesBox"></div>
+
+    <!-- Full attempt history -->
+    <div id="historyBox"></div>
   </section>
 
   <!-- ===== QUIZ SCREEN ===== -->
   <section id="quiz" class="card hidden">
     <div class="topbar">
-      <span class="progress-txt"><span id="answeredCount">0</span>/36 answered</span>
+      <span class="progress-txt">⚡ <span id="answeredCount">0</span>/36</span>
       <div class="bar"><div class="bar-fill" id="barFill"></div></div>
       <span class="progress-txt" id="posTxt">Q1</span>
     </div>
@@ -167,10 +337,10 @@
     <div class="qtext" id="qText"></div>
     <div id="optBox"></div>
     <div class="navrow">
-      <button class="btn btn-ghost" id="prevBtn" onclick="go(-1)">← Previous</button>
+      <button class="btn btn-ghost" id="prevBtn" onclick="go(-1)">← Back</button>
       <button class="btn btn-primary" id="nextBtn" onclick="go(1)">Next →</button>
     </div>
-    <button class="btn btn-gold btn-block hidden" id="submitBtn" onclick="submitTest()">Submit Test</button>
+    <button class="btn btn-gold btn-block hidden" id="submitBtn" onclick="submitTest()">🏁 Submit &amp; See Results</button>
   </section>
 
   <!-- ===== RESULTS SCREEN ===== -->
@@ -188,8 +358,8 @@
       <div class="verdict-sub" id="verdictSub"></div>
     </div>
     <div class="navrow" style="margin-top:18px">
-      <button class="btn btn-ghost" onclick="backToStart()">↺ Home</button>
-      <button class="btn btn-primary" onclick="startTest()">Take Another →</button>
+      <button class="btn btn-ghost" onclick="backToStart()">🏠 Home</button>
+      <button class="btn btn-primary" onclick="startTest()">🔄 Try Again</button>
     </div>
     <div class="review">
       <h3>Review</h3>
@@ -395,6 +565,37 @@ const BANK = [
 ];
 
 /* ============================================================
+   AWARD DEFINITIONS
+   ============================================================ */
+const AWARDS = {
+  daily: [
+    {req:1,  icon:'🌱', name:'Fresh Start',       req_lbl:'1-day streak'},
+    {req:3,  icon:'🔥', name:'On a Roll',         req_lbl:'3-day streak'},
+    {req:7,  icon:'⚡', name:'Week Warrior',      req_lbl:'7-day streak'},
+    {req:14, icon:'💪', name:'Fortnight Fighter', req_lbl:'14-day streak'},
+    {req:30, icon:'🏅', name:'Monthly Maverick',  req_lbl:'30-day streak'},
+  ],
+  pass: [
+    {req:1,  icon:'🎯', name:'First Pass',  req_lbl:'1 pass in a row'},
+    {req:3,  icon:'🌟', name:'Hat Trick',   req_lbl:'3 passes in a row'},
+    {req:5,  icon:'🔥', name:'On Fire',     req_lbl:'5 passes in a row'},
+    {req:10, icon:'🏆', name:'Pass Master', req_lbl:'10 passes in a row'},
+  ],
+  attempt: [
+    {req:1,  icon:'🚗', name:'First Drive', req_lbl:'1st attempt'},
+    {req:5,  icon:'🔄', name:'Persistent',  req_lbl:'5 attempts'},
+    {req:10, icon:'💪', name:'Dedicated',   req_lbl:'10 attempts'},
+    {req:25, icon:'⭐', name:'Veteran',     req_lbl:'25 attempts'},
+    {req:50, icon:'👑', name:'Legend',      req_lbl:'50 attempts'},
+  ],
+  score: [
+    {req:30, icon:'✅', name:'Passed!',       req_lbl:'Score 30+'},
+    {req:34, icon:'🌟', name:'Sharp Driver',  req_lbl:'Score 34+'},
+    {req:36, icon:'💯', name:'Perfect Score', req_lbl:'All 36 correct'},
+  ],
+};
+
+/* ============================================================
    APP LOGIC
    ============================================================ */
 const TEST_SIZE = 36, PASS = 30;
@@ -427,21 +628,43 @@ function renderQ(){
   $('posTxt').textContent = `Q${pos+1}`;
   $('qText').textContent = item.q;
   const letters = ['A','B','C','D','E'];
-  $('optBox').innerHTML = item.opts.map((o,i)=>`
-    <button class="opt ${answers[pos]===i?'sel':''}" onclick="pick(${i})">
+  const picked = answers[pos];
+  const isAnswered = picked !== null;
+  $('optBox').innerHTML = item.opts.map((o,i)=>{
+    let cls = 'opt';
+    if(isAnswered){
+      if(i === item.correctIdx) cls += ' correct';
+      else if(i === picked) cls += ' wrong';
+      else cls += ' locked';
+    }
+    return `<button class="${cls}" ${isAnswered ? '' : `onclick="pick(${i})"`}>
       <span class="letter">${letters[i]}</span><span>${o}</span>
-    </button>`).join('');
+    </button>`;
+  }).join('');
+  if(isAnswered){
+    const isCorrect = picked === item.correctIdx;
+    const fb = document.createElement('div');
+    fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+    fb.innerHTML = isCorrect
+      ? `<span class="fb-icon">✅</span><span>Correct! Nice one.</span>`
+      : `<span class="fb-icon">❌</span><span>Incorrect — correct answer: <b>${letters[item.correctIdx]}. ${item.opts[item.correctIdx]}</b></span>`;
+    $('optBox').appendChild(fb);
+  }
   const answered = answers.filter(a=>a!==null).length;
   $('answeredCount').textContent = answered;
   $('barFill').style.width = (answered/TEST_SIZE*100)+'%';
   $('prevBtn').style.visibility = pos===0 ? 'hidden':'visible';
   const last = pos===TEST_SIZE-1;
   $('nextBtn').classList.toggle('hidden', last);
-  // show submit button only on last question
   $('submitBtn').classList.toggle('hidden', !last);
 }
 
-function pick(i){ answers[pos]=i; renderQ(); }
+function pick(i){
+  const item=test[pos];
+  recordQStat(item.q, item.opts[item.correctIdx], item.opts[i]);
+  answers[pos]=i;
+  renderQ();
+}
 function go(d){ pos = Math.max(0, Math.min(TEST_SIZE-1, pos+d)); renderQ(); window.scrollTo(0,0); }
 
 function submitTest(){
@@ -468,7 +691,7 @@ function showResults(score){
   $('scoreNum').textContent = `${score}/${TEST_SIZE}`;
   $('scorePct').textContent = `${pct}%`;
   const v = $('verdict'), vs = $('verdictSub');
-  v.textContent = passed ? 'PASS ✓' : 'Not yet';
+  v.textContent = passed ? '🏆 You Passed!' : '😤 Not Yet';
   v.className = 'verdict ' + (passed?'pass':'fail');
   vs.textContent = passed
     ? `You needed 30 to pass — nice work. Keep taking these until you pass with 100% regularly.`
@@ -510,33 +733,262 @@ function backToStart(){
   $('results').classList.add('hidden');
   $('quiz').classList.add('hidden');
   $('start').classList.remove('hidden');
-  renderHistory();
+  renderHome();
   window.scrollTo(0,0);
 }
 
-/* ---- daily history (graceful if storage blocked) ---- */
+/* ============================================================
+   HISTORY · STATS · AWARDS
+   ============================================================ */
+function toDateKey(ts){
+  const d=new Date(ts); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function computeStats(history){
+  const totalAttempts = history.length;
+  const totalPasses   = history.filter(h=>h.pass).length;
+  const bestScore     = totalAttempts ? Math.max(...history.map(h=>h.score)) : null;
+
+  // Pass streak: consecutive passes from most-recent entry
+  let passStreak=0;
+  for(const h of history){ if(h.pass) passStreak++; else break; }
+  let bestPassStreak=0, curP=0;
+  for(let i=history.length-1;i>=0;i--){
+    if(history[i].pass){curP++;if(curP>bestPassStreak)bestPassStreak=curP;}else curP=0;
+  }
+
+  // Daily streak: consecutive calendar days with at least one attempt
+  const withTs=history.filter(h=>h.ts);
+  let dailyStreak=0, bestDailyStreak=0, streakActive=false;
+  if(withTs.length){
+    const dateSet=new Set(withTs.map(h=>toDateKey(h.ts)));
+    const descDates=[...dateSet].sort().reverse();
+    const todayKey=toDateKey(Date.now());
+    const yestKey=toDateKey(Date.now()-86400000);
+    streakActive = descDates[0]===todayKey;
+    if(descDates[0]===todayKey||descDates[0]===yestKey){
+      let expected=new Date(descDates[0]);
+      for(const dk of descDates){
+        if(dk===toDateKey(expected.getTime())){dailyStreak++;expected=new Date(expected.getTime()-86400000);}
+        else break;
+      }
+    }
+    // Scan entire history for best daily streak
+    const ascDates=[...dateSet].sort();
+    let curD=1; bestDailyStreak=Math.max(1,dailyStreak);
+    for(let i=1;i<ascDates.length;i++){
+      const diff=Math.round((new Date(ascDates[i])-new Date(ascDates[i-1]))/86400000);
+      if(diff===1){curD++;if(curD>bestDailyStreak)bestDailyStreak=curD;}else curD=1;
+    }
+  }
+  return{totalAttempts,totalPasses,bestScore,passStreak,bestPassStreak,dailyStreak,bestDailyStreak,streakActive};
+}
+
+/* ============================================================
+   PER-QUESTION STATS  (persistent mistake tracking)
+   ============================================================ */
+function getQStats(){
+  try{return JSON.parse(localStorage.getItem('caDmvQStats')||'{}');}catch(e){return{};}
+}
+function saveQStats(s){
+  try{localStorage.setItem('caDmvQStats',JSON.stringify(s));}catch(e){}
+}
+function recordQStat(questionText,correctText,pickedText){
+  const s=getQStats();
+  if(!s[questionText]) s[questionText]={seen:0,correct:0,wrongPicks:{},recent:[]};
+  const entry=s[questionText];
+  const wasCorrect=(pickedText===correctText);
+  entry.seen++;
+  if(wasCorrect){
+    entry.correct++;
+  } else {
+    entry.wrongPicks[pickedText]=(entry.wrongPicks[pickedText]||0)+1;
+  }
+  // Rolling window of last 5 results (true=correct, false=wrong)
+  if(!entry.recent) entry.recent=[];
+  entry.recent.push(wasCorrect);
+  if(entry.recent.length>5) entry.recent.shift();
+  saveQStats(s);
+}
+function getPersistentMistakes(){
+  const s=getQStats();
+  const out=[];
+  for(const[q,data] of Object.entries(s)){
+    // Condition 1: minimum 3 attempts
+    if(data.seen<3) continue;
+    // Condition 2: wrong more than 50% overall
+    const wrong=data.seen-data.correct;
+    if(wrong<=data.seen/2) continue;
+    // Condition 3: auto-clears only when last 2 consecutive attempts are both correct
+    // (one lucky correct doesn't erase a pattern of struggle)
+    const recent=data.recent||[];
+    const n=recent.length;
+    if(n>=2 && recent[n-1]===true && recent[n-2]===true) continue;
+    const bankEntry=BANK.find(b=>b.q===q);
+    if(!bankEntry) continue;
+    const topWrongEntry=Object.entries(data.wrongPicks).sort((a,b)=>b[1]-a[1])[0];
+    out.push({
+      q, exp:bankEntry.exp,
+      correctAnswer:bankEntry.opts[bankEntry.correct],
+      topWrong:topWrongEntry?topWrongEntry[0]:null,
+      seen:data.seen, correct:data.correct,
+      wrongRate:Math.round(wrong/data.seen*100),
+    });
+  }
+  return out.sort((a,b)=>b.wrongRate-a.wrongRate||b.seen-a.seen);
+}
+
+let mistakesShowAll=false;
+function renderMistakes(){
+  const box=$('mistakesBox');
+  if(!box) return;
+  const mistakes=getPersistentMistakes();
+  if(!mistakes.length){
+    box.innerHTML=`<div class="mistakes-wrap">
+      <div class="mistakes-hdr"><h3>⚠️ Trouble Spots</h3></div>
+      <div class="mistakes-empty">🎉 No trouble spots yet — keep practicing to see patterns here.</div>
+    </div>`;
+    return;
+  }
+  const MAX=3;
+  const shown=mistakesShowAll?mistakes:mistakes.slice(0,MAX);
+  box.innerHTML=`<div class="mistakes-wrap">
+    <div class="mistakes-hdr">
+      <h3>⚠️ Trouble Spots (${mistakes.length})</h3>
+      <button class="mistakes-reset" onclick="resetMistakes()">Reset data</button>
+    </div>
+    <p class="mistakes-sub">Questions you've gotten wrong more than half the time — study these.</p>
+    ${shown.map(m=>`
+      <div class="mcard">
+        <div class="mcard-head">
+          <div class="mcard-q">${m.q}</div>
+          <div class="mcard-rate">Wrong ${m.wrongRate}% &nbsp;(${m.seen - m.correct}/${m.seen})</div>
+        </div>
+        ${m.topWrong?`<div class="mcard-row wrong">
+          <span class="mcard-ic">✗</span>
+          <span>You often choose: <b>${m.topWrong}</b></span>
+        </div>`:''}
+        <div class="mcard-row right">
+          <span class="mcard-ic">✓</span>
+          <span>Correct answer: <b>${m.correctAnswer}</b></span>
+        </div>
+        <div class="mcard-exp">💡 ${m.exp}</div>
+      </div>`).join('')}
+    ${mistakes.length>MAX?`<button class="mistakes-more" onclick="toggleMistakesShow()">
+      ${mistakesShowAll?'Show less ▲':'Show all '+mistakes.length+' trouble spots ▼'}
+    </button>`:''}
+  </div>`;
+}
+function toggleMistakesShow(){ mistakesShowAll=!mistakesShowAll; renderMistakes(); }
+function resetMistakes(){
+  if(!confirm('Reset all trouble spot tracking data?')) return;
+  try{localStorage.removeItem('caDmvQStats');}catch(e){}
+  mistakesShowAll=false;
+  renderMistakes();
+}
+
+function renderHome(){
+  let history=[];
+  try{history=JSON.parse(localStorage.getItem('caDmvHistory')||'[]');}catch(e){}
+  const s=computeStats(history);
+  renderStreaks(s);
+  renderPStats(s);
+  renderAwardBadges(s);
+  renderMistakes();
+  renderHistoryList(history);
+}
+
+function renderStreaks(s){
+  const di=s.dailyStreak;
+  const dIcon = di>=14?'💪':di>=7?'⚡':di>=3?'🔥':di>=1?'🌱':'😴';
+  const pi=s.passStreak;
+  const pIcon = pi>=10?'🏆':pi>=5?'🔥':pi>=3?'🌟':pi>=1?'🎯':'🎮';
+  $('dailyIcon').textContent = dIcon;
+  $('dailyNum').textContent  = di;
+  $('dailyBest').textContent = `Best: ${s.bestDailyStreak} day${s.bestDailyStreak!==1?'s':''}`;
+  $('dailyActive').innerHTML = s.streakActive
+    ? `<span class="s-active">🔥 Active today!</span>`
+    : (di>0 ? `<span class="s-active" style="background:#fef3c7;color:#b45309">Keep it going!</span>` : '');
+  $('passIcon').textContent = pIcon;
+  $('passNum').textContent  = pi;
+  $('passBest').textContent = `Best: ${s.bestPassStreak} in a row`;
+}
+
+function renderPStats(s){
+  $('statAttempts').textContent = s.totalAttempts;
+  $('statPasses').textContent   = s.totalPasses;
+  $('statBest').textContent     = s.bestScore!==null ? s.bestScore+'/36' : '—';
+}
+
+function renderAwardBadges(s){
+  const check=(list,val)=>list.map(a=>({...a,earned:val>=a.req}));
+  const cats=[
+    {title:'🔥 Daily Streak', items:check(AWARDS.daily,  s.bestDailyStreak)},
+    {title:'🎯 Pass Streak',  items:check(AWARDS.pass,   s.bestPassStreak)},
+    {title:'📋 Milestones',   items:check(AWARDS.attempt,s.totalAttempts)},
+    {title:'🏆 Score Badges', items:check(AWARDS.score,  s.bestScore||0)},
+  ];
+  $('awardsBox').innerHTML=cats.map(cat=>`
+    <div class="award-cat">
+      <div class="award-cat-lbl">${cat.title}</div>
+      <div class="badges-row">
+        ${cat.items.map(a=>`
+          <div class="badge ${a.earned?'earned':'locked'}" title="${a.req_lbl}">
+            <span class="b-icon">${a.icon}</span>
+            <div class="b-name">${a.name}</div>
+            <div class="b-req">${a.req_lbl}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+let histShowAll=false;
+function renderHistoryList(history){
+  const box=$('historyBox');
+  if(!history.length){box.innerHTML='';return;}
+  const MAX=5;
+  const shown=histShowAll?history:history.slice(0,MAX);
+  box.innerHTML=`
+    <div class="hist-head">
+      <h3>📜 All Attempts (${history.length})</h3>
+      ${history.length>MAX?`<button class="hist-more" onclick="toggleHistShow()">
+        ${histShowAll?'Show less ▲':'Show all '+history.length+' ▼'}</button>`:''}
+    </div>
+    ${shown.map(x=>`
+      <div class="hrow">
+        <span style="color:var(--muted);font-size:13px">${x.d}</span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="hrow-score">${x.score}/36</span>
+          <span class="pill ${x.pass?'pass':'fail'}">${x.pass?'✓ Pass':'✗ Fail'}</span>
+        </span>
+      </div>`).join('')}
+    <div style="text-align:right;margin-top:6px">
+      <button class="clearbtn" onclick="clearHistory()">Clear all history</button>
+    </div>`;
+}
+function toggleHistShow(){
+  histShowAll=!histShowAll;
+  let h=[];try{h=JSON.parse(localStorage.getItem('caDmvHistory')||'[]');}catch(e){}
+  renderHistoryList(h);
+}
+
 function saveHistory(score){
   try{
-    const h = JSON.parse(localStorage.getItem('caDmvHistory')||'[]');
-    h.unshift({d:new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
-               score, pass:score>=PASS});
-    localStorage.setItem('caDmvHistory', JSON.stringify(h.slice(0,20)));
-  }catch(e){/* storage unavailable; skip */}
+    const h=JSON.parse(localStorage.getItem('caDmvHistory')||'[]');
+    h.unshift({
+      d:new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+      score, pass:score>=PASS, ts:Date.now()
+    });
+    localStorage.setItem('caDmvHistory',JSON.stringify(h.slice(0,500)));
+  }catch(e){}
 }
-function renderHistory(){
-  let h=[];
-  try{ h = JSON.parse(localStorage.getItem('caDmvHistory')||'[]'); }catch(e){}
-  const box=$('historyBox');
-  if(!h.length){ box.innerHTML=''; return; }
-  const passes = h.filter(x=>x.pass).length;
-  box.innerHTML = `<h3>Your recent attempts</h3>
-    ${h.map(x=>`<div class="hrow"><span>${x.d}</span>
-       <span><b>${x.score}/36</b> &nbsp;<span class="pill ${x.pass?'pass':'fail'}">${x.pass?'PASS':'Below'}</span></span></div>`).join('')}
-    <div style="text-align:right"><button class="clearbtn" onclick="clearHistory()">Clear history</button></div>`;
+function clearHistory(){
+  try{localStorage.removeItem('caDmvHistory');}catch(e){}
+  histShowAll=false;
+  renderHome();
 }
-function clearHistory(){ try{localStorage.removeItem('caDmvHistory');}catch(e){} renderHistory(); }
 
-renderHistory();
+renderHome();
 </script>
 </body>
 </html>
