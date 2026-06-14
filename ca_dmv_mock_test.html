@@ -267,6 +267,64 @@
     border-top:1px dashed var(--line);line-height:1.55}
   .mistakes-more{display:block;background:none;border:none;font-size:12px;color:var(--p);
     cursor:pointer;font-weight:700;text-decoration:underline;margin:4px auto 0}
+
+  /* ── Mobile: fit quiz on one screen, no scrolling required ── */
+  @media(max-width:480px){
+    /* Hide the header during quiz to reclaim ~180px */
+    body.in-quiz{padding-top:0}
+    body.in-quiz header{display:none}
+    body.in-quiz #quiz.card{margin-top:0}
+
+    /* Tighten body & card */
+    body{padding-left:10px;padding-right:10px;padding-bottom:24px}
+    #quiz{padding:12px 12px 14px}
+
+    /* Topbar */
+    .topbar{padding:7px 2px;margin:-2px 0 9px}
+    .progress-txt{font-size:11px}
+    .bar{height:7px;margin:0 7px}
+
+    /* Question label + text */
+    .qnum{font-size:11px;padding:3px 10px;margin-bottom:7px}
+    .qtext{font-size:15px;line-height:1.35;margin-bottom:11px}
+
+    /* Answer options — keep 44px min touch target */
+    .opt{padding:9px 11px;margin-bottom:6px;font-size:14px;
+         gap:10px;border-radius:11px;border-width:1.5px;min-height:44px}
+    .opt:hover{transform:none}
+    .opt:active{transform:scale(.98)}
+    .letter{width:27px;height:27px;font-size:12px;border-radius:7px}
+
+    /* Feedback strip */
+    .feedback{padding:8px 12px;font-size:13px;margin-top:5px;
+              gap:8px;border-radius:10px;border-width:1.5px}
+    .feedback .fb-icon{font-size:15px}
+
+    /* Nav row */
+    .navrow{margin-top:9px;gap:8px}
+    .navrow .btn{padding:11px 10px;font-size:14px;border-radius:11px}
+    #submitBtn{margin-top:9px;padding:12px 10px;font-size:14px;border-radius:11px}
+
+    /* Home page — tighten header so it doesn't dominate */
+    header{margin-bottom:14px}
+    .crest{width:56px;height:56px;font-size:26px;border-radius:16px;margin-bottom:10px}
+    h1{font-size:clamp(22px,6vw,30px);letter-spacing:-1px}
+    .sub{font-size:13px;margin-top:6px}
+    .tag{font-size:11px;margin-top:10px;padding:4px 12px}
+
+    /* Home dashboard */
+    #start.card{padding:16px 13px}
+    .streak-row{gap:8px}
+    .streak-card{padding:12px 10px}
+    .s-emoji{font-size:24px}
+    .s-num{font-size:24px}
+    .s-label{font-size:10px}
+    .s-best{font-size:10px}
+    .pstats-row{gap:8px}
+    .pstat{padding:10px 6px}
+    .pstat b{font-size:18px}
+    .pstat small{font-size:10px}
+  }
 </style>
 </head>
 <body>
@@ -618,6 +676,7 @@ function startTest(){
   $('start').classList.add('hidden');
   $('results').classList.add('hidden');
   $('quiz').classList.remove('hidden');
+  document.body.classList.add('in-quiz');
   window.scrollTo(0,0);
   renderQ();
 }
@@ -685,6 +744,7 @@ function submitTest(){
 function showResults(score){
   $('quiz').classList.add('hidden');
   $('results').classList.remove('hidden');
+  document.body.classList.remove('in-quiz');
   window.scrollTo(0,0);
   const pct = Math.round(score/TEST_SIZE*100);
   const passed = score>=PASS;
@@ -733,6 +793,7 @@ function backToStart(){
   $('results').classList.add('hidden');
   $('quiz').classList.add('hidden');
   $('start').classList.remove('hidden');
+  document.body.classList.remove('in-quiz');
   renderHome();
   window.scrollTo(0,0);
 }
